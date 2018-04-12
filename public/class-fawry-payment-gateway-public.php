@@ -96,7 +96,27 @@ class Fawry_Payment_Gateway_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/fawry-payment-gateway-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( 
+			$this->plugin_name, 
+			plugin_dir_url( __FILE__ ) . 'js/fawry-payment-gateway-public.js', 
+			array( 'jquery' ), 
+			$this->version, 
+			false 
+		);
+		wp_enqueue_script( 
+			'atfawry', 
+			'https://www.atfawry.com/ECommercePlugin/scripts/fawryPlugin.js', 
+			array( 'jquery' ), 
+			$this->version, 
+			false 
+		);
+		function atfawry_func( $atts ){
+			return '<input type="image" '
+				.'onclick="loadFawryPluginPopup('
+					.'\'test_id\', \'en-gb\', 1,productsJSON, \'\',\'\',\'\',null, 1, \'Buy from here\', null);" 
+				src="'.plugin_dir_url( __FILE__ ) .'images/fawry.png"/>';
+		}
+		add_shortcode( 'atfawry', 'atfawry_func' );
 
 	}
 
